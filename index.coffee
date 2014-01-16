@@ -7,7 +7,6 @@ SPEED = 75
 TOTAL_CIRCLE = 400
 
 keyHandler = (my, chunk, key) ->
-    process.stdout.write('Keypress: ' + chunk + '\n')
     switch chunk
         when 'x'
             my.sphero.stop()
@@ -32,13 +31,20 @@ keyHandler = (my, chunk, key) ->
         when 'g'
             circleA my
         else
-            my.sphero.roll(SPEED, 0)
+            my.sphero.roll SPEED, 0
 
     return
 
 workFunc = (my) ->
     fired = false
     my.sphero.stop()
+    my.sphero.detectCollisions(true)
+    my.sphero.setRotationRate 50
+    my.sphero.on 'collision', ->
+        console.log 'collision'
+        my.sphero.setColor 0x00BFFF
+        my.sphero.stop()
+        return
 
     stdin = process.openStdin()
     process.stdin.setEncoding('utf8')
@@ -112,7 +118,7 @@ settings =
     connection:
         name: 'sphero'
         adaptor: 'sphero'
-        port: '/dev/cu.Sphero-GOG-AMP-SPP'
+        port: '/dev/cu.Sphero-RRW-AMP-SPP'
     device:
         name: 'sphero'
         driver: 'sphero'
