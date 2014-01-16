@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tebriel/sphero/issues"
   },
-  "homepage": "https://github.com/tebriel/sphero"
+  "homepage": "https://github.com/tebriel/sphero",
+  "dependencies": {
+    "cylon-sphero": "~0.6.0"
+  }
 }
